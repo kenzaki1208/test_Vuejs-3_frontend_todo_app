@@ -10,36 +10,34 @@
         <div v-if="successMessage" class="alert alert-success">
           {{ successMessage }}
         </div>
-      </div>
-      <form @submit.prevent="addItem">
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label for="FirstName" class="form-label">FirstName:</label>
-            <input type="text" class="form-control" id="FirstName" v-model="item.first_Name" placeholder="type here" required/>
+        <form @submit.prevent="addItem">
+          <div class="row g-3 p-3">
+            <div class="col-md-6">
+              <label for="FirstName" class="form-label">FirstName:</label>
+              <input type="text" class="form-control" id="FirstName" v-model="item.first_Name" placeholder="type here" required/>
+            </div>
+            <div class="col-md-6">
+              <label for="LastName" class="form-label">LastName:</label>
+              <input type="text" class="form-control" id="LastName" v-model="item.last_Name" placeholder="type here" required/>
+            </div>
+            <div class="col-md-6">
+              <label for="Email" class="form-label">Email:</label>
+              <input type="text" class="form-control" id="Email" v-model="item.email" placeholder="type here" required/>
+            </div>
+            <div class="col-md-6">
+              <label for="Address" class="form-label">Address:</label>
+              <input type="text" class="form-control" id="Address" v-model="item.address_" placeholder="type here" required/>
+            </div>
+            <div class="mt-4 d-flex justify-content-end text-center">
+              <button type="submit" class="btn btn-primary px-4 m-1">
+                <i class="bi bi-plus-lg"></i>Add
+              </button>
+              <router-link :to="{name: 'Home'}" class="btn btn-outline-secondary m-1">
+                <i class="bi bi-arrow-left-circle"></i> Return
+              </router-link>
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="LastName" class="form-label">LastName:</label>
-            <input type="text" class="form-control" id="LastName" v-model="item.last_Name" placeholder="type here" required/>
-          </div>
-          <div class="col-md-6">
-            <label for="Email" class="form-label">Email:</label>
-            <input type="text" class="form-control" id="Email" v-model="item.email" placeholder="type here" required/>
-          </div>
-          <div class="col-md-6">
-            <label for="Address" class="form-label">Address:</label>
-            <input type="text" class="form-control" id="Address" v-model="item.address_" placeholder="type here" required/>
-          </div>
-          <div class="mt-4 text-center">
-            <button type="submit" class="btn btn-primary px-4">
-              <i class="bi bi-plus-lg"></i>Add
-            </button>
-          </div>
-        </div>
-      </form>
-      <div class="mt-4 d-flex justify-content-start">
-        <router-link :to="{name: 'Home'}" class="btn btn-outline-secondary">
-          <i class="bi bi-arrow-left-circle"></i> Return
-        </router-link>
+        </form>
       </div>
     </div>
   </div>

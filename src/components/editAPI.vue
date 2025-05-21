@@ -27,15 +27,13 @@
                     <input type="text" class="form-control" id="Address" v-model="item.address_" placeholder="type here" required/>
                   </div>
                     </div>
-                    <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                    <div class="d-flex justify-content-end text-center mt-4">
+                        <button type="submit" class="btn btn-primary m-1">Update</button>
+                        <router-link :to="{ name: 'Home' }" class="btn btn-outline-secondary m-1">
+                            <i class="bi bi-arrow-left-circle"></i> Return
+                        </router-link>
                     </div>
                 </form>
-                <div class="mt-4 d-flex justify-content-start">
-                    <router-link :to="{ name: 'Home' }" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left-circle"></i> Return
-                    </router-link>
-                </div>
             </div>
         </div>
     </div>

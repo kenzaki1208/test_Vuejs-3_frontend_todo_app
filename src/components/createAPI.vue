@@ -12,21 +12,10 @@
         </div>
         <form @submit.prevent="addItem">
           <div class="row g-3 p-3">
-            <div class="col-md-6">
-              <label for="FirstName" class="form-label">FirstName:</label>
-              <input type="text" class="form-control" id="FirstName" v-model="item.first_Name" placeholder="type here" required/>
-            </div>
-            <div class="col-md-6">
-              <label for="LastName" class="form-label">LastName:</label>
-              <input type="text" class="form-control" id="LastName" v-model="item.last_Name" placeholder="type here" required/>
-            </div>
-            <div class="col-md-6">
-              <label for="Email" class="form-label">Email:</label>
-              <input type="text" class="form-control" id="Email" v-model="item.email" placeholder="type here" required/>
-            </div>
-            <div class="col-md-6">
-              <label for="Address" class="form-label">Address:</label>
-              <input type="text" class="form-control" id="Address" v-model="item.address_" placeholder="type here" required/>
+            <label for="Congviechangngay" class="form-label">Công việc hằng ngày:</label>
+            <div class="d-flex flex-row justify-items-center">
+              <input type="text" class="form-control" id="Congviechangngay" v-model="itemTask.congviechangngay" placeholder="type here" required/>
+              <VueDatePicker v-model="date"/>
             </div>
             <div class="mt-4 d-flex justify-content-end text-center">
               <button type="submit" class="btn btn-primary px-4 m-1">
@@ -45,18 +34,31 @@
 
 <script>
 import axios from 'axios';
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 export default {
   name: 'CreateAPI',
+  components: {
+    VueDatePicker
+  },
   setup() {
-    const item = reactive({
-      first_Name: '',
-      last_Name: '',
-      email: '',
-      address_: ''
-    });
+    const date = ref(new Date());
+
+    const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
+    const itemTask = {
+      congviechangngay: '',
+      dateandTime: formatDate(date.value),
+      trangThai: false
+    };
 
     const router = useRouter();
 
@@ -64,7 +66,9 @@ export default {
 
     const addItem = async () => {
       try {
-        await axios.post('http://localhost:7096/api/Test', item);
+        console.log('Data being sent:', itemTask);
+        await axios.post('http://localhost:7096/api/DailyWork', itemTask);
+        console.log('Item created successfully:', itemTask);
         successMessage.value = 'Item created successfully!';
         setTimeout(() => {
           successMessage.value = '';
@@ -77,9 +81,11 @@ export default {
     };
 
     return {
-      item,
+      itemTask,
       successMessage,
-      addItem
+      addItem,
+      date,
+      formatDate
     };
   }
 }

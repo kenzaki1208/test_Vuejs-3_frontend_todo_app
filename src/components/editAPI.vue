@@ -11,20 +11,8 @@
                 <form @submit.prevent="updateItem">
                   <div class="row g-3">
                       <div class="col-md-6">
-                    <label for="FirstName" class="form-label">FirstName:</label>
-                    <input type="text" class="form-control" id="FirstName" v-model="item.first_Name" placeholder="type here" required/>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="LastName" class="form-label">LastName:</label>
-                    <input type="text" class="form-control" id="LastName" v-model="item.last_Name" placeholder="type here" required/>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="Email" class="form-label">Email:</label>
-                    <input type="text" class="form-control" id="Email" v-model="item.email" placeholder="type here" required/>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="Address" class="form-label">Address:</label>
-                    <input type="text" class="form-control" id="Address" v-model="item.address_" placeholder="type here" required/>
+                    <label for="Congviechangngay" class="form-label">Công việc hằng ngày:</label>
+                    <input type="text" class="form-control" id="Congviechangngay" v-model="item.congviechangngay" placeholder="type here" required/>
                   </div>
                     </div>
                     <div class="d-flex justify-content-end text-center mt-4">
@@ -43,25 +31,22 @@
 </style>
 
 <script>
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 
 export default {
     setup() {
-        const item = reactive({
-          first_Name: '',
-          last_Name: '',
-          email: '',
-          address_: ''
-        });
+        const item = {
+          Congviechangngay: '',
+        };
         const route = useRoute();
         const router = useRouter();
         const successMessage = ref('');
 
         const getItem = async () => {
             try {
-                const response = await axios.get(`http://localhost:7096/api/Test/${route.params.id}`);
+                const response = await axios.get(`http://localhost:7096/api/DailyWork/${route.params.id}`);
                 Object.assign(item, response.data);
             }
             catch (error) {
@@ -70,7 +55,7 @@ export default {
         };
 
         const updateItem = async () => {
-            const uri = `http://localhost:7096/api/Test/${route.params.id}`;
+            const uri = `http://localhost:7096/api/DailyWork/${route.params.id}`;
             console.log(uri)
             await axios.put(uri, item);
             successMessage.value = 'Item Updated Successfully!';
